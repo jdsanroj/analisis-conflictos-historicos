@@ -252,6 +252,7 @@ st.markdown("""
 # --------------------
 BASE_DIR = "."  # Directorio actual
 DATA_DIR = BASE_DIR  # Los archivos estarán en la raíz
+CSV_PATH = os.path.join(DATA_DIR, "ucdp_api_to_dataframe.csv")
 SHAPE_PATH = os.path.join(DATA_DIR, "naturalearth_lowres.zip")
 
 # --------------------
@@ -259,8 +260,7 @@ SHAPE_PATH = os.path.join(DATA_DIR, "naturalearth_lowres.zip")
 # --------------------
 @st.cache_data
 def load_data():
-    url = "https://drive.google.com/uc?id=1u8CdHeCpwL64LuYYevz0QYvrasLqGyxr"
-    df = pd.read_csv(url, parse_dates=['date_start', 'date_end'], low_memory=False)
+    df = pd.read_csv(CSV_PATH, parse_dates=['date_start', 'date_end'], low_memory=False)
     df['total_deaths'] = df['best'].clip(lower=0).fillna(0)
     gdf = gpd.GeoDataFrame(
         df,
