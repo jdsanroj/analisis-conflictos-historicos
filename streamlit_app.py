@@ -260,7 +260,7 @@ SHAPE_PATH = os.path.join(DATA_DIR, "naturalearth_lowres.zip")
 # --------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv(CSV_PATH, parse_dates=['date_start', 'date_end'])
+    df = pd.read_csv(CSV_PATH, parse_dates=['date_start', 'date_end'], low_memory=False)
     df['total_deaths'] = df['best'].clip(lower=0).fillna(0)
     gdf = gpd.GeoDataFrame(
         df,
@@ -323,7 +323,7 @@ if page == "🏠 Introducción":
     
     # Descripción del proyecto
     st.markdown(
-        '<h3 class="project-description">🎯 Descripción del Proyecto</h3>' +
+        '<h3 class="project-description">🗂️ Detalle del Proyecto</h3>' +
         '<p class="description-text">' +
         'Esta página interactiva permite explorar patrones espaciales y temporales de conflictos armados, ' +
         'visualizar mapas, realizar análisis por décadas, examinar tipos de violencia y ' +
@@ -333,7 +333,7 @@ if page == "🏠 Introducción":
     )
     
     st.markdown("<br><br>", unsafe_allow_html=True)
-    st.markdown('<h3 class="project-description">📈 Resumen de Datos</h3>', unsafe_allow_html=True)
+    st.markdown('<h3 class="project-description">📋 Datos Utilizados</h3>', unsafe_allow_html=True)
     
     # Cálculo de métricas
     metricas_introduccion = [
